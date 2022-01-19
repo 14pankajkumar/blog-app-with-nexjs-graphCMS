@@ -247,3 +247,35 @@ export const getAdjacentPosts = async (slug, createdAt) => {
 
   return { next: result.next[0], previous: result.previous[0] };
 };
+
+export const submitImage = async (obj) => {
+  const result = await fetch("/api/user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+
+  // const result = await fetch(`${graphqlAPI}/upload`, {
+  //   method: "POST",
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPHCMS_AUTH_TOKEN}`,
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   },
+  //   body: `url=${encodeURIComponent(obj)}`,
+  // });
+  return result.json();
+};
+
+export const submitLike = async (obj) => {
+  const result = await fetch("/api/like", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+
+  return result.json();
+};

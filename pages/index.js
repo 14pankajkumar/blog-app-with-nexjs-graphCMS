@@ -8,7 +8,6 @@ const Home = ({ posts, categories, featuredPosts }) => {
     <div className="container mx-auto px-10 mb-8">
       <Head>
         <title>Blog App with graph CMS</title>
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <FeaturedPosts featuredPosts={featuredPosts} />
 
