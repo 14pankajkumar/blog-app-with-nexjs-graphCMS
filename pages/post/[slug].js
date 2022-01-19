@@ -5,6 +5,7 @@ import {
   Author,
   Comments,
   CommentsForm,
+  Loader,
 } from "../../components";
 import {
   getPosts,
@@ -13,8 +14,15 @@ import {
   getComments,
 } from "../../services";
 import { AdjacentPosts } from "../../sections";
+import { useRouter } from "next/router";
 
 const Post = ({ post, categories, comments }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
