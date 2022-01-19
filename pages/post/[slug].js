@@ -5,6 +5,7 @@ import {
   Author,
   Comments,
   CommentsForm,
+  Loader,
 } from "../../components";
 import {
   getPosts,
