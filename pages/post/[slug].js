@@ -59,6 +59,7 @@ export async function getStaticProps({ params }) {
       categories,
       comments,
     },
+    revalidate: 60,
   };
 }
 
