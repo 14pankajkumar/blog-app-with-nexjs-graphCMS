@@ -41,6 +41,6 @@ export async function getStaticProps() {
       categories,
       featuredPosts,
     },
-    unstable_revalidate: 1
+    revalidate: 1
   };
 }
