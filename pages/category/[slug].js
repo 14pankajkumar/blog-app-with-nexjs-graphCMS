@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
 import { PostCard, Categories } from "../../components";
 import { getCategories, getCategoryPost } from "../../services";
 
 const category = ({ posts, categories }) => {
-  const router = useRouter();
-
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
