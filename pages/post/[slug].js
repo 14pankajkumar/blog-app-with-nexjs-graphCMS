@@ -6,10 +6,22 @@ import {
   Comments,
   CommentsForm,
 } from "../../components";
-import { getPostDetails, getCategories, getComments } from "../../services";
+import {
+  getPosts,
+  getPostDetails,
+  getCategories,
+  getComments,
+} from "../../services";
 import { AdjacentPosts } from "../../sections";
+import { useRouter } from "next/router";
 
 const Post = ({ post, categories, comments }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -36,16 +48,23 @@ const Post = ({ post, categories, comments }) => {
 
 export default Post;
 
-export async function getServerSideProps(context) {
-  const slug = context.query.slug;
-  const data = await getPostDetails(slug);
+export async function getStaticProps({ params }) {
+  const data = await getPostDetails(params.slug);
   const categories = await getCategories();
-  const comments = await getComments(slug);
+  const comments = await getComments(params.slug);
   return {
     props: {
       post: data,
       categories,
       comments,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return {
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    fallback: true,
   };
 }

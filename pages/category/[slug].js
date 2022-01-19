@@ -1,7 +1,14 @@
-import { PostCard, Categories } from "../../components";
+import { useRouter } from "next/router";
+import { PostCard, Categories, Loader } from "../../components";
 import { getCategories, getCategoryPost } from "../../services";
 
 const Category = ({ posts, categories }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -22,9 +29,8 @@ const Category = ({ posts, categories }) => {
 
 export default Category;
 
-export async function getServerSideProps(context) {
-  const slug = context.query.slug;
-  const posts = await getCategoryPost(slug);
+export async function getStaticProps({ params }) {
+  const posts = await getCategoryPost(params.slug);
   const categories = await getCategories();
 
   return {
@@ -32,5 +38,14 @@ export async function getServerSideProps(context) {
       posts,
       categories,
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+
+  return {
+    paths: categories.map(({ slug }) => ({ params: { slug } })),
+    fallback: true,
   };
 }
