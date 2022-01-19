@@ -31,7 +31,7 @@ const Home = ({ posts, categories, featuredPosts }) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const posts = (await getPosts()) || [];
   const categories = await getCategories();
   const featuredPosts = await getFeaturedPosts();
