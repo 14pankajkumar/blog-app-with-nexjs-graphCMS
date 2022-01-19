@@ -14,7 +14,7 @@ import {
 } from "../../services";
 import { AdjacentPosts } from "../../sections";
 
-const post = ({ post, categories, comments }) => {
+const Post = ({ post, categories, comments }) => {
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -39,7 +39,7 @@ const post = ({ post, categories, comments }) => {
   );
 };
 
-export default post;
+export default Post;
 
 export async function getStaticProps({ params }) {
   const data = await getPostDetails(params.slug);
