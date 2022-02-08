@@ -34,6 +34,7 @@ export async function getStaticProps() {
   const posts = (await getPosts()) || [];
   const categories = await getCategories();
   const featuredPosts = await getFeaturedPosts();
+
   return {
     props: {
       posts,
